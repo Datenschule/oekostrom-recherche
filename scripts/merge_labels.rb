@@ -27,20 +27,18 @@ end
 
 gs.each do |record|
   if comb[record["Anbieter"]] != false
-    comb[record["Anbieter"]][:availability] = record["Verfügbarkeit"],
-    comb[record["Anbieter"]][:gruenstrom] = true
-
     puts "Found match, enhancing data for: #{ record['Anbieter'] }"
   else
     comb[record["Anbieter"]] = {
       provider: record["Anbieter"],
       tarif: record["Tarif"],
-      availability: record["Verfügbarkeit"],
       phone: record["Telefon"],
-      website: record["Website"],
-      gruenstrom: true
+      website: record["Website"]
     }
   end
+
+  comb[record["Anbieter"]][:availability] = record["Verfügbarkeit"]
+  comb[record["Anbieter"]][:gruenstrom] = true
 end
 
 comb = comb.sort_by { |k,v| v[:provider] }
