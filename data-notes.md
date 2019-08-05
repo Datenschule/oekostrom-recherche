@@ -9,10 +9,38 @@ Grün Strom https://www.gruenerstromlabel.de//gruener-strom/oekostrom-beziehen/
 Wir scrapen von den Websiten und mergen dann basierend auf dem Anbieternamen.
 Die gescrapten Daten orientieren sich an Tarifen, aber wir interessieren uns für die Anbieter.
 
+``` bash
+# scrape
+$ python scripts/scraper-okpower.py && python scripts/scraper-gruenerstrom.py
+# move to clean data and then merge
+$ ruby scripts/merge_labels.rb
+```
+
 ## Enhance!
-Energie und Management
+
+### Energie und Management
 http://www.energymailer.de/filestore/newsimgorg/Illustrationen_Stimmungsbilder/UEbersichten_Tabellen/Reine_Oekostromanbieter_Liste_2018_Umfrage_Tabelle_EundM.orig.pdf
 
 > Stand: Oktober 2017 auf Basis der von den Unternehmen ausgewiesenen Stromkennzeichnung
 
-Auf dem PDF gescrapt mit Tabula
+Aus dem PDF gescrapt mit Tabula
+
+``` bash
+# merge
+$ ruby scripts/merge_eum_reineoekostromanbieter.rb
+```
+
+### Verbraucherzentrale Niedersachsen
+https://www.marktwaechter-energie.de/wp-content/uploads/2015/07/Uebersicht_Oekostromtarife_Grundversorger_Niedersachsen.pdf
+
+https://www.marktwaechter-energie.de/untersuchungen/ueberblick-oekostrom-labels/
+
+> Stand: August 2015
+
+Aus dem PDF gescrapt mit Tabula und in OpenRefine nachgebessert.
+
+``` bash
+# merge
+$ ruby scripts/merge_verbraucherzentrale.rb
+```
+Dann noch einmal in OpenRefine geclustert und bereinigt.
