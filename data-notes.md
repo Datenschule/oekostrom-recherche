@@ -44,3 +44,16 @@ Aus dem PDF gescrapt mit Tabula und in OpenRefine nachgebessert.
 $ ruby scripts/merge_verbraucherzentrale.rb
 ```
 Dann noch einmal in OpenRefine geclustert und bereinigt.
+
+---
+
+Stromauskunft.de
+
+Scraped data from https://www.stromauskunft.de/oekostrom/oekostrom-anbieter/
+und https://www.stromauskunft.de/oekostrom/echter-oekostrom/
+Als PDF gespeichert, mit Tabula in CSV umgewandelt, un OpenRefine bereinigt.
+
+
+Utopia.de
+
+Daten aus diesem Artikel https://utopia.de/bestenlisten/die-besten-oekostrom-anbieter/#kriterien
