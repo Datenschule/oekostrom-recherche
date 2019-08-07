@@ -57,3 +57,12 @@ Als PDF gespeichert, mit Tabula in CSV umgewandelt, un OpenRefine bereinigt.
 Utopia.de
 
 Daten aus diesem Artikel https://utopia.de/bestenlisten/die-besten-oekostrom-anbieter/#kriterien
+
+
+---
+
+Bundesnetzagentur StromVersorger
+
+https://www.bundesnetzagentur.de/SharedDocs/Downloads/DE/Sachgebiete/Energie/Unternehmen_Institutionen/HandelundVertrieb/LieferantenAnzeige/StromVersorgerListe_pdf.pdf?__blob=publicationFile&v=7
+
+In gescrapt mit Tabula
