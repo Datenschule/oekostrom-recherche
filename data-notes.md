@@ -79,6 +79,7 @@ Abgeglichen und Adressen ergänzt
 Problematisch:
 - Unklar woher die Daten stammen
 - Wann welcher Anbieter vorgeschlagen bzw verglichen wird
+
 Aber:
 - Hier informieren sich Leute
 - Scheinen irgendwo an Daten gekommen zu sein?
@@ -89,7 +90,7 @@ Aber:
 - Alle Ökostromtarifanbieter https://www.stromauskunft.de/oekostrom/oekostrom-anbieter/ (715)
 - Alle "echter" Ökostromanbieter https://www.stromauskunft.de/oekostrom/echter-oekostrom/ (18)
 - Beziehen sich auf Öko Test, Jahrbuch 2018 vom 09.01.2018
-- Als PDF gespeichert, mit Tabula in CSV umgewandelt, un OpenRefine bereinigt.
+- Als PDF gespeichert, mit Tabula in CSV umgewandelt, in OpenRefine bereinigt.
 
 ### Utopia.de
 
