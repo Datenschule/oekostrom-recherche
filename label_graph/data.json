@@ -34,13 +34,13 @@
     {"source": "verivox", "target": "gruenerstrom", "kind": 1},
     {"source": "verivox", "target": "tuvnord", "kind": 1},
     {"source": "check24", "target": "okpower", "kind": 1},
-    {"source": "check24", "target": "okpower", "kind": 1}
+    {"source": "check24", "target": "gruenerstrom", "kind": 1}
   ],
   "groups": [
     {"id": "label", "label": "Ökostromlabel"},
     {"id": "cert", "label": "Zertifizierung"},
-    {"id": "comparision", "label": "Vergleichsportal"},
-    {"id": "other", "label": "Andere"}
+    {"id": "comparison", "label": "Vergleichsportal"},
+    {"id": "other", "label": "Empfehlungslisten"}
   ],
   "linkTypes": [
     {"id": "includes", "label": "berücksichtigt"},

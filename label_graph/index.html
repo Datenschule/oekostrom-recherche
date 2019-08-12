@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <title>Graph Ökostromanbieterinfos</title>
     <style type="text/css">
+     html {
+       font: 16px sans-serif;
+     }
      .links line {
        stroke: #999;
        stroke-opacity: 0.6;
@@ -11,46 +14,94 @@
 
      .nodes circle {
        stroke: #fff;
-       stroke-width: 1.5px;
+       stroke-width: 1px;
      }
+
+     .tooltip {
+       position: absolute;
+       pointer-events: none;
+       padding: 12px;
+       border: 0px;
+       border-radius: 2px;
+       background-color: rgba(255, 255, 255, 0.7);
+     }
+
+     .legend div {
+       margin-bottom: .8rem;
+     }
+     .legend div:before {
+       content: "";
+       width: 1.3rem;
+       height: 1.3rem;
+       display: inline-block;
+       margin-right: .3rem;
+     }
+     .label:before {
+       background-color: forestgreen;
+     }
+      .cert:before {
+      background-color: yellowgreen;
+      }
+      .comparison:before {
+      background-color: slategrey;
+      }
+      .other:before {
+      background-color: dimgrey;
+      }
     </style>
   </head>
   <body>
     <svg width="960" height="600"></svg>
-
     <script src="d3.min.js"></script>
-    <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
     <script>
-
-
      var svg = d3.select("svg"),
          width = +svg.attr("width"),
          height = +svg.attr("height");
 
+     var div = d3.select("body").append("div")
+                 .attr("class", "tooltip")
+                 .style("opacity", 0);
+
+     var legend = d3.select("body").append("div")
+                    .attr("class", "legend");
+
+
      const data = d3.json("data.json").then(function (data) {
-       //if (error) throw error;
-       //update(graph.links, graph.nodes);
-
-       //window.graph = graph
-
        var simulation = d3.forceSimulation()
                           .nodes(data.nodes);
 
        simulation
          .force("charge_force", d3.forceManyBody())
-         .force("center_force", d3.forceCenter(width / 2, height / 2));
+         .force("center_force", d3.forceCenter(width / 2, height / 2))
+         .force("collision_force", d3.forceCollide(70));
 
 
-       var node = svg.append("g")
-                     .attr("class", "nodes")
-                     .selectAll("circle")
-                     .data(data.nodes)
-                     .enter()
-                     .append("circle")
-                     .attr("r", 5)
-                     .attr("fill", "red");
+       var bars = legend.append("div")
+                        .attr("class", "bar")
+                        .selectAll("div")
+                        .data(data.groups)
+                        .enter()
+                        .append("div")
+                        .attr("class", (d) => d.id)
+                        .html((d) => d.label)
 
+       function circleRadius(d) {
+         var count = data.links.filter(a => a.target == d.id).length;
+         return count * 6 + 15;
+       }
 
+       function circleColor(d){
+         switch (d.group) {
+           case(0):
+             return "forestgreen";
+           case(1):
+             return "yellowgreen";
+           case(2):
+             return "slategrey";
+           case(3):
+             return "dimgrey";
+         }
+       }
 
        function tickActions() {
          node
@@ -64,19 +115,68 @@
            .attr("y2", function(d) { return d.target.y; });
        }
 
-       simulation.on("tick", tickActions );
-
-
-       var link_force =  d3.forceLink(data.links)
-                           .id(function(d) { return d.id; })
-       simulation.force("links",link_force)
-
        var link = svg.append("g")
                      .attr("class", "links")
                      .selectAll("line")
                      .data(data.links)
                      .enter().append("line")
-                     .attr("stroke-width", 2);
+                     .attr("stroke-width", 5)
+                     .attr("stroke-dasharray", strokeStyle)
+                     .attr("title", (d) => data.linkTypes[d.kind].label)
+                     .on("mouseover", function(d) {
+                       div.transition()
+                          .duration(200)
+                          .style("opacity", .9);
+                       div
+                         .html(`<strong>${data.linkTypes[d.kind].label}</strong>`)
+                         .style("left", (d3.event.pageX) + "px")
+                         .style("top", (d3.event.pageY + 30) + "px");
+                     })
+                     .on("mouseout", function(d) {
+                       div.transition()
+                          .duration(500)
+                          .style("opacity", 0);
+                     });
+
+       function strokeStyle(d) {
+         if (d.kind == 0) {
+           return 0;
+         } else {
+           return 2;
+         }
+       }
+
+       var node = svg.append("g")
+                     .attr("class", "nodes")
+                     .selectAll("circle")
+                     .data(data.nodes)
+                     .enter()
+                     .append("circle")
+                     .attr("r", circleRadius)
+                     .attr("fill", circleColor)
+                     .attr("title", (d) => `${d.label} (${data.groups[d.group].label})`)
+                     .on("mouseover", function(d) {
+                       div.transition()
+                          .duration(200)
+                          .style("opacity", .9);
+                       div
+                         .html(`<strong>${d.label}</strong><br>(${data.groups[d.group].label})`)
+                         .style("left", (d3.event.pageX) + "px")
+                         .style("top", (d3.event.pageY + 30) + "px");
+                     })
+                     .on("mouseout", function(d) {
+                       div.transition()
+                          .duration(500)
+                          .style("opacity", 0);
+                     });
+
+
+       simulation.on("tick", tickActions );
+
+
+       var link_force =  d3.forceLink(data.links)
+                           .id(function(d) { return d.id; })
+       simulation.force("links",link_force);
 
      })
     </script>
