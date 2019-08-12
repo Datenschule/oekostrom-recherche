@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Graph Ökostromanbieterinfos</title>
+    <style type="text/css">
+     .links line {
+       stroke: #999;
+       stroke-opacity: 0.6;
+     }
+
+     .nodes circle {
+       stroke: #fff;
+       stroke-width: 1.5px;
+     }
+    </style>
+  </head>
+  <body>
+    <svg width="960" height="600"></svg>
+
+    <script src="d3.min.js"></script>
+    <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+    <script>
+
+
+     var svg = d3.select("svg"),
+         width = +svg.attr("width"),
+         height = +svg.attr("height");
+
+     const data = d3.json("data.json").then(function (data) {
+       //if (error) throw error;
+       //update(graph.links, graph.nodes);
+
+       //window.graph = graph
+
+       var simulation = d3.forceSimulation()
+                          .nodes(data.nodes);
+
+       simulation
+         .force("charge_force", d3.forceManyBody())
+         .force("center_force", d3.forceCenter(width / 2, height / 2));
+
+
+       var node = svg.append("g")
+                     .attr("class", "nodes")
+                     .selectAll("circle")
+                     .data(data.nodes)
+                     .enter()
+                     .append("circle")
+                     .attr("r", 5)
+                     .attr("fill", "red");
+
+
+
+       function tickActions() {
+         node
+           .attr("cx", function(d) { return d.x; })
+           .attr("cy", function(d) { return d.y; })
+
+         link
+           .attr("x1", function(d) { return d.source.x; })
+           .attr("y1", function(d) { return d.source.y; })
+           .attr("x2", function(d) { return d.target.x; })
+           .attr("y2", function(d) { return d.target.y; });
+       }
+
+       simulation.on("tick", tickActions );
+
+
+       var link_force =  d3.forceLink(data.links)
+                           .id(function(d) { return d.id; })
+       simulation.force("links",link_force)
+
+       var link = svg.append("g")
+                     .attr("class", "links")
+                     .selectAll("line")
+                     .data(data.links)
+                     .enter().append("line")
+                     .attr("stroke-width", 2);
+
+     })
+    </script>
+    <body>
+</html>

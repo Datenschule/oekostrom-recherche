@@ -8,6 +8,7 @@ Problematisch:
 
 ### OK Power
 - https://www.ok-power.de/fuer-strom-kunden/anbieter-uebersicht.html
+- Kriterien https://www.ok-power.de/files/ok_power_theme/PDF-Downloads/ok-power%20Kriterien%20V9.1.pdf
 - Liste mit python gescrapt
 
 ``` bash
@@ -112,3 +113,19 @@ Aber:
 - https://www.verivox.de/power/carriers.aspx?fl=all
 - Stand 07.08.2019
 - in csv kopiert
+
+
+### Ökotest Strom Jahrbuch Januar 2018
+
+- Liste von Ökostromanbietern auf Basis von  Eco Top Ten
+- https://www.oekotest.de/bauen-wohnen/Oeko-Strom-im-Test-Das-sind-die-besten-Anbieter_111510_1.html
+- Stand 12.12.2018
+- von website gescrapt
+
+### Eco Top Ten
+- Liste aller bundesweit angebotenen Ökostromtarife, die eine (!) Zertifizierung oder Label haben
+- https://www.ecotopten.de/strom/oekostrom-tarife
+- https://www.ecotopten.de/oekostromtarife/xls?attach=panel_pane_5
+- Kriterien https://www.ecotopten.de/sites/default/files/ecotopten_kriterien_oekostrom.pdf
+- Stand august 2018
+- wird als .xls angeboten \o/
