@@ -15,7 +15,7 @@ Problematisch:
 $ python scripts/scraper-okpower.py
 ```
 
-### Grün Strom
+### Grüner Strom
 
 - https://www.gruenerstromlabel.de//gruener-strom/oekostrom-beziehen/
 - Liste mit python gescrapt
